@@ -18,4 +18,19 @@ python3 quad_pred.py -s e -m e -i audio/anger_1.mp3
 
 You can also change the flags in the contructor method to output a taggram or print the mean probability of the classifier over the whole clip.
 
+### Tag-gram
 ![alt text](https://github.com/juansgomez87/quad-pred/blob/master/audio/anger_1.png)
+
+### Approximation
+```
+*************
+Calculating output for file: audio/anger_1.mp3
+Using model: ./models/speech_eng_2_music_eng/model_over_8.spec.it_1.feat_ext.json 
+*************
+*************
+Mean predictions for file: audio/anger_1.npy
+Quadrant 1 (positive arousal, positive valence: 0.20719571
+Quadrant 2 (positive arousal, negative valence: 0.7511331
+Quadrant 3 (negative arousal, negative valence: 0.021125803
+Quadrant 4 (negative arousal, positive valence: 0.020545341
+```
