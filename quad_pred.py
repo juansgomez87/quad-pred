@@ -6,7 +6,6 @@ import librosa
 import argparse
 from keras.models import model_from_json, load_model
 
-
 import pdb
 
 
@@ -15,8 +14,8 @@ class QuadPredictor():
         """Constructor method
         """
         # initial configuration
-        self.normalize = False
-        self.pretty_print = True
+        self.max_output = False
+        self.print_approx = True
         self.plot_taggram = True
         
         self.ind_to_label = {0: 'Q1 (A+V+)', 1: 'Q2 (A+V-)', 2: 'Q3 (A-V-)', 3: 'Q4 (A-V+)'}
@@ -113,14 +112,23 @@ class QuadPredictor():
         depending on the initial config. 
         """
         y_pred = model.predict(spec_array)
-        if self.normalize:
-            pass
-            
-        if self.pretty_print:
-            pass
+        if self.max_output:
+            y_pred_max = np.zeros(y_pred.shape)
+            for i in range(y_pred_max.shape[0]):
+                y_pred_max[i, np.argmax(y_pred, axis=1)[i]] = np.max(y_pred, axis=1)[i]
+            y_pred = y_pred_max
+        
+        if self.print_approx:
+            mean_pred = np.mean(y_pred, axis=0)
+            print('*************\nMean predictions for file:', out_file)
+            print('Quadrant 1 (positive arousal, positive valence:', mean_pred[0])
+            print('Quadrant 2 (positive arousal, negative valence:', mean_pred[1])
+            print('Quadrant 3 (negative arousal, negative valence:', mean_pred[2])
+            print('Quadrant 4 (negative arousal, positive valence:', mean_pred[3])
+            print('*************')
         
         if self.plot_taggram:
-            plt.imshow(y_pred.T, aspect='auto')
+            plt.imshow(y_pred.T, aspect='auto', interpolation='nearest')
             plt.xlabel('Time [s]')
             plt.yticks(np.arange(len(self.ind_to_label)), self.ind_to_label.values())
             plt.ylabel('Quadrants')
