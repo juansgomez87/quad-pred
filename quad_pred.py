@@ -121,10 +121,10 @@ class QuadPredictor():
         if self.print_approx:
             mean_pred = np.mean(y_pred, axis=0)
             print('*************\nMean predictions for file:', out_file)
-            print('Quadrant 1 (positive arousal, positive valence:', mean_pred[0])
-            print('Quadrant 2 (positive arousal, negative valence:', mean_pred[1])
-            print('Quadrant 3 (negative arousal, negative valence:', mean_pred[2])
-            print('Quadrant 4 (negative arousal, positive valence:', mean_pred[3])
+            print('Quadrant 1 (positive arousal, positive valence):', mean_pred[0])
+            print('Quadrant 2 (positive arousal, negative valence):', mean_pred[1])
+            print('Quadrant 3 (negative arousal, negative valence):', mean_pred[2])
+            print('Quadrant 4 (negative arousal, positive valence):', mean_pred[3])
             print('*************')
         
         if self.plot_taggram:
