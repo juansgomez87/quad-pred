@@ -5,18 +5,44 @@ This script loads an audio file and makes predictions of the perceived emotion u
 
 
 ## Prerequisites
+Install Docker, for Ubuntu [go here].
+[https://docs.docker.com/install/linux/docker-ce/ubuntu/]
+
+## Run
+
+Clone this repository and build the container with all corresponding installations. This might take a while since it will install Tensorflow from scratch:
+
 ```
-pip install keras, matplotlib, numpy, librosa, pandas
+git clone https://github.com/juansgomez87/quad-pred.git
+cd quad-pred
+docker build -t quadpred .
+docker run -it --rm -v /abspath/quad-pred/audio/bitter_1.mp3:/audio.mp3 -v /abspath/quad-pred/:/outdir quadpred -s e -m e -i /audio.mp3 -o /outdir/result.npy
 ```
 
-## Run 
-
-Just run the file with the corresponding model selector and the input file to process. 
+Otherwise, you can also install dependencies using:
 ```
-python3 quad_pred.py -s e -m e -i audio/anger_1.mp3
+pip3 install -r requirements.txt
+python3 quad_pred.py -s e -m e -i audio/anger_1.mp3 -o audio/results.npy
 ```
 
 You can also change the flags in the contructor method to output a taggram or print the mean probability of the classifier over the whole clip.
+
+You can use the `-help` flag to see the complete list of information. 
+```
+docker run --rm quadpred -h
+usage: quad_pred.py [-h] -s SPEECH -m MUSIC -i INPUT
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -s SPEECH, --speech SPEECH
+                        Select from pretrained models on speech in english (e)
+                        or mandarin (m)
+  -m MUSIC, --music MUSIC
+                        Select music of data for transfer learning: english
+                        (e) or mandarin (m)
+  -i INPUT, --input INPUT
+                        Select filename to make predictions
+```
 
 ### Tag-gram
 ![alt text](https://github.com/juansgomez87/quad-pred/blob/master/audio/anger_1.png)

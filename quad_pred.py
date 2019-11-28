@@ -10,7 +10,7 @@ import pdb
 
 
 class QuadPredictor():
-    def __init__(self, case_str, input_file):
+    def __init__(self, case_str, input_file, out_file):
         """Constructor method
         """
         # initial configuration
@@ -35,7 +35,7 @@ class QuadPredictor():
         
         # predict!
         self.format_input = input_file.split('.')[-1]
-        out_file = input_file.replace(self.format_input, 'npy')
+
         self.predict_and_save(model, spec_array, out_file)
        
       
@@ -162,6 +162,12 @@ if __name__ == "__main__":
                         action='store',
                         required=True,
                         dest='input')
+    parser.add_argument('-o',
+                        '--output',
+                        help='Select output directory to save results',
+                        action='store',
+                        required=True,
+                        dest='output')
     args = parser.parse_args()
 
     if args.speech == 'e' and args.music == 'e':
@@ -178,4 +184,4 @@ if __name__ == "__main__":
         print('******\n CROSSLINGUISTIC CASE: man 2 eng\n')
     
     # instanciate predictor
-    q_pred = QuadPredictor(case_str, args.input)
+    q_pred = QuadPredictor(case_str, args.input, args.output)
