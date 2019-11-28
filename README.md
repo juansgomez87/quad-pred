@@ -59,7 +59,7 @@ Quadrant 3 (negative arousal, negative valence): 0.021125803
 Quadrant 4 (negative arousal, positive valence): 0.020545341
 ```
 
-### Publication
+## Publication
 ```
 @InProceedings{Gomez2019,
 	author = {Juan Sebasti{\'a}n G{\'o}mez Ca{\~n}{\'o}n and Estefan{'i}a Cano and Perfecto Herrera and Emilia G{\'o}mez},
