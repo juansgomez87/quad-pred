@@ -15,13 +15,13 @@ Clone this repository and build the container with all corresponding installatio
 git clone https://github.com/juansgomez87/quad-pred.git
 cd quad-pred
 docker build -t quadpred .
-docker run -it --rm -v /abspath/quad-pred/audio/bitter_1.mp3:/audio.mp3 -v /abspath/quad-pred/:/outdir quadpred -s e -m e -i /audio.mp3 -o /outdir/anger.npy
+docker run -it --rm -v /abspath/quad-pred/audio/bitter_1.mp3:/audio.mp3 -v /abspath/quad-pred/audio/:/outdir quadpred -s e -m e -i /audio.mp3 -o /outdir/anger.npy
 ```
 
 Otherwise, you can also install dependencies using:
 ```
 pip3 install -r requirements.txt
-python3 quad_pred.py -s e -m e -i audio/anger_1.mp3 -o audio/results.npy
+python3 quad_pred.py -s e -m e -i audio/bitter_1.mp3 -o audio/bitter_1.npy
 ```
 
 You can also change the flags in the contructor method to output a taggram or print the mean probability of the classifier over the whole clip.
