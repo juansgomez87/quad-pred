@@ -1,12 +1,11 @@
 # Arousal-Valence Quadrant Prediction
 
 ## Content
-This script loads an audio file and makes predictions of the perceived emotion using the Russell circumplex model of emotion as a classifier (four classes). Quadrant 1 relates to positive arousal - positive valence (e.g., happy), Quadrant 2 relates to positive arousal - negative valence (e.g., angry), Quadrant 3 relates to negative arousal - negative valence (e.g., sad), and Quadrant 4 relates to negative arousal - positive valence (e.g., relaxed). The models have been previously trained with speech in English (Librispeech) and Mandarin (AISHELL) and transfer learning has been performed to fine-tune on music in English (4Q-Emotion) and Mandarin (CH-818). The audio directory includes some examples to test.
+This script loads an audio file and makes predictions of the perceived emotion using the Russell circumplex model of emotion as a classifier (four classes). Quadrant 1 relates to positive arousal - positive valence (e.g., happy), Quadrant 2 relates to positive arousal - negative valence (e.g., angry), Quadrant 3 relates to negative arousal - negative valence (e.g., sad), and Quadrant 4 relates to negative arousal - positive valence (e.g., relaxed). The models have been previously trained with speech in English (Librispeech) and Mandarin (AISHELL) and transfer learning has been performed to fine-tune on music in English (4Q-Emotion) and Mandarin (CH-818). The audio directory includes some examples to test on.
 
 
 ## Prerequisites
-Install Docker, for Ubuntu [go here].
-(https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+Install Docker, for Ubuntu [go here](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
 ## Run
 
