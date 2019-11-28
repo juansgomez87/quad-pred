@@ -15,7 +15,7 @@ Clone this repository and build the container with all corresponding installatio
 git clone https://github.com/juansgomez87/quad-pred.git
 cd quad-pred
 docker build -t quadpred .
-docker run -it --rm -v /abspath/quad-pred/audio/bitter_1.mp3:/audio.mp3 -v /abspath/quad-pred/:/outdir quadpred -s e -m e -i /audio.mp3 -o /outdir/result.npy
+docker run -it --rm -v /abspath/quad-pred/audio/bitter_1.mp3:/audio.mp3 -v /abspath/quad-pred/:/outdir quadpred -s e -m e -i /audio.mp3 -o /outdir/anger.npy
 ```
 
 Otherwise, you can also install dependencies using:
@@ -57,4 +57,13 @@ Quadrant 1 (positive arousal, positive valence): 0.20719571
 Quadrant 2 (positive arousal, negative valence): 0.7511331
 Quadrant 3 (negative arousal, negative valence): 0.021125803
 Quadrant 4 (negative arousal, positive valence): 0.020545341
+```
+
+### Publication
+```
+@InProceedings{Gomez2019,
+	author = {Juan Sebasti{\'a}n G{\'o}mez Ca{\~n}{\'o}n and Estefan{'i}a Cano and Perfecto Herrera and Emilia G{\'o}mez},
+	title = {Transfer Learning of emotion recognition from speech to music: towards language-sensitive models},
+	year = {2020},
+}
 ```
