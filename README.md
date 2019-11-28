@@ -64,6 +64,6 @@ Quadrant 4 (negative arousal, positive valence): 0.020545341
 @InProceedings{Gomez2019,
 	author = {Juan Sebasti{\'a}n G{\'o}mez Ca{\~n}{\'o}n and Estefan{'i}a Cano and Perfecto Herrera and Emilia G{\'o}mez},
 	title = {Transfer Learning of emotion recognition from speech to music: towards language-sensitive models},
-	year = {2020},
+	year = {2019},
 }
 ```
