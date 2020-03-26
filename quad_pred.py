@@ -10,7 +10,7 @@ import pdb
 
 
 class QuadPredictor():
-    def __init__(self, case_str, input_file, out_file):
+    def __init__(self, case_str, input_file, out_dir):
         """Constructor method
         """
         # initial configuration
@@ -18,9 +18,9 @@ class QuadPredictor():
         self.print_approx = True
         self.plot_taggram = True
         
-        self.ind_to_label = {0: 'Q1 (A+V+)', 1: 'Q2 (A+V-)', 2: 'Q3 (A-V-)', 3: 'Q4 (A-V+)'}
-        self.mod_type = 'feat_ext'  # 'feat_ext' or 'unmix'
-        self.model_name = 'model_over_8'
+        self.ind_to_label_quad = {0: 'Q1 (A+V+)', 1: 'Q2 (A+V-)', 2: 'Q3 (A-V-)', 3: 'Q4 (A-V+)'}
+        self.ind_to_label_arou = {0: 'A-', 1: 'A+'}
+        self.ind_to_label_vale = {0: 'V-', 1: 'V+'}
         self.sampling_rate = 16000
         path_model_load = os.path.join('./models', case_str)
 
@@ -36,18 +36,17 @@ class QuadPredictor():
         # predict!
         self.format_input = input_file.split('.')[-1]
 
+        out_file = os.path.join(out_dir, input_file.split('/')[-1].split('.')[0])
+
         self.predict_and_save(model, spec_array, out_file)
        
       
     def model_selector(self, path):
         """ This method selects the weights and structure of the network
         """
-        sel_txt = 'it_1'
+        sel_txt = 'it_3'
         files = [os.path.join(path, f) for f in os.listdir(path) if (os.path.isfile(os.path.join(path, f)) 
-                                                                     and f.find(sel_txt) > 0 
-                                                                     and f.find(self.model_name) == 0 
-                                                                     and f.find('spec') >= 0
-                                                                     and f.find(self.mod_type) >= 0)]
+                                                                     and f.find(sel_txt) > 0)]
         weights_filename = [_ for _ in files if _.endswith('.hdf5')][0]
         json_filename = [_ for _ in files if _.endswith('.json')][0]
         return json_filename, weights_filename
@@ -113,36 +112,64 @@ class QuadPredictor():
         """
         y_pred = model.predict(spec_array)
         if self.max_output:
-            y_pred_max = np.zeros(y_pred.shape)
-            for i in range(y_pred_max.shape[0]):
-                y_pred_max[i, np.argmax(y_pred, axis=1)[i]] = np.max(y_pred, axis=1)[i]
-            y_pred = y_pred_max
-        
+            y_pred_max_quad = np.zeros(y_pred[0].shape)
+            y_pred_max_arou = np.zeros(y_pred[1].shape)
+            y_pred_max_vale = np.zeros(y_pred[2].shape)
+            for i in range(y_pred_max_quad.shape[0]):
+                y_pred_max_quad[i, np.argmax(y_pred[0], axis=1)[i]] = np.max(y_pred[0], axis=1)[i]
+                y_pred_max_arou[i, np.argmax(y_pred[1], axis=1)[i]] = np.max(y_pred[1], axis=1)[i]
+                y_pred_max_vale[i, np.argmax(y_pred[2], axis=1)[i]] = np.max(y_pred[2], axis=1)[i]
+            y_pred_quad = y_pred_max_quad
+            y_pred_arou = y_pred_max_arou
+            y_pred_vale = y_pred_max_vale
+        else:
+            y_pred_quad = y_pred[0]
+            y_pred_arou = y_pred[1]
+            y_pred_vale = y_pred[2]            
+   
         if self.print_approx:
-            mean_pred = np.mean(y_pred, axis=0)
+            mean_pred_quad = np.mean(y_pred_quad, axis=0)
+            mean_pred_arou = np.mean(y_pred_arou, axis=0)
+            mean_pred_vale = np.mean(y_pred_vale, axis=0)
             print('*************\nMean predictions for file:', out_file)
-            print('Quadrant 1 (positive arousal, positive valence):', mean_pred[0])
-            print('Quadrant 2 (positive arousal, negative valence):', mean_pred[1])
-            print('Quadrant 3 (negative arousal, negative valence):', mean_pred[2])
-            print('Quadrant 4 (negative arousal, positive valence):', mean_pred[3])
+            print('Quadrant 1 (positive arousal, positive valence):', mean_pred_quad[0])
+            print('Quadrant 2 (positive arousal, negative valence):', mean_pred_quad[1])
+            print('Quadrant 3 (negative arousal, negative valence):', mean_pred_quad[2])
+            print('Quadrant 4 (negative arousal, positive valence):', mean_pred_quad[3])
             print('*************')
+            print('Negative arousal:', mean_pred_arou[0])
+            print('Positive arousal:', mean_pred_arou[1])
+            print('*************')
+            print('Negative valence:', mean_pred_vale[0])
+            print('Positive valence:', mean_pred_vale[1])
+            print('*************')
+
         
         if self.plot_taggram:
-            plt.imshow(y_pred.T, aspect='auto', interpolation='nearest')
-            plt.xlabel('Time [s]')
-            plt.yticks(np.arange(len(self.ind_to_label)), self.ind_to_label.values())
-            plt.ylabel('Quadrants')
-            plt.colorbar()
-            plt.title('Quadrant prediction')
+            fig, ax = plt.subplots(3, 1, figsize=(5, 10))
+            ax[0].imshow(y_pred_quad.T, aspect='auto', interpolation='nearest')
+            ax[0].set_yticks(np.arange(len(self.ind_to_label_quad)))
+            ax[0].set_yticklabels(self.ind_to_label_quad.values())
+            ax[0].set_ylabel('Quadrants')
+            ax[1].imshow(y_pred_arou.T, aspect='auto', interpolation='nearest')
+            ax[1].set_yticks(np.arange(len(self.ind_to_label_arou)))
+            ax[1].set_yticklabels(self.ind_to_label_arou.values())
+            ax[1].set_ylabel('Arousal')
+            ax[2].imshow(y_pred_vale.T, aspect='auto', interpolation='nearest')
+            ax[2].set_xlabel('Time [s]')
+            ax[2].set_yticks(np.arange(len(self.ind_to_label_vale)))
+            ax[2].set_yticklabels(self.ind_to_label_vale.values())
+            ax[2].set_ylabel('Valence')
+ 
             plt.tight_layout()
             png_file = out_file.replace('npy', 'png')
             plt.savefig(png_file)
         # save predictions
-        np.save(out_file, y_pred)
-        
+        np.save(out_file, y_pred_quad)
+
 
 if __name__ == "__main__":
-    # Usage python3 quad_pred.py --speech e/m --music e/m --input input_filename
+    # Usage python3 quad_pred.py --speech e/m --music e/m --input input_filename --output output_dir
     parser = argparse.ArgumentParser()
     parser.add_argument('-s',
                         '--speech',

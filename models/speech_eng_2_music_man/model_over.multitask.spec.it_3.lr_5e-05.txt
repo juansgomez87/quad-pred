@@ -1,0 +1,56 @@
+models_trans/speech_eng_2_music_man/model_over.multitask.spec.it_3.lr_5e-05.json 
+Test results:
+loss: 20.98878519220408
+quadrants_loss: 8.44900164777233
+arousal_loss: 5.882063585954423
+valence_loss: 6.657720313316753
+quadrants_acc: 0.47580645161290325
+arousal_acc: 0.6330645161290323
+valence_acc: 0.5846774193548387
+
+
+---Quads---
+              precision    recall  f1-score   support
+
+           0       0.48      1.00      0.64      7198
+           1       0.00      0.00      0.00      2379
+           2       0.00      0.00      0.00      3904
+           3       0.00      0.00      0.00      1647
+
+   micro avg       0.48      0.48      0.48     15128
+   macro avg       0.12      0.25      0.16     15128
+weighted avg       0.23      0.48      0.31     15128
+ samples avg       0.48      0.48      0.48     15128
+
+[[1. 0. 0. 0.]
+ [1. 0. 0. 0.]
+ [1. 0. 0. 0.]
+ [1. 0. 0. 0.]]
+
+---Arousal---
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00      6283
+           1       0.58      1.00      0.74      8845
+
+   micro avg       0.58      0.58      0.58     15128
+   macro avg       0.29      0.50      0.37     15128
+weighted avg       0.34      0.58      0.43     15128
+ samples avg       0.58      0.58      0.58     15128
+
+[[0. 1.]
+ [0. 1.]]
+
+---Valence---
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00      5551
+           1       0.63      1.00      0.78      9577
+
+   micro avg       0.63      0.63      0.63     15128
+   macro avg       0.32      0.50      0.39     15128
+weighted avg       0.40      0.63      0.49     15128
+ samples avg       0.63      0.63      0.63     15128
+
+[[0. 1.]
+ [0. 1.]]
