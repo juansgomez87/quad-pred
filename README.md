@@ -63,9 +63,10 @@ optional arguments:
 
 ## Publication
 ```
-@InProceedings{Gomez2019,
+@InProceedings{GomezCanon2020Eusipco,
 	author = {Juan Sebasti{\'a}n G{\'o}mez Ca{\~n}{\'o}n and Estefan{'i}a Cano and Perfecto Herrera and Emilia G{\'o}mez},
-	title = {Transfer Learning of emotion recognition from speech to music: towards language-sensitive models},
-	year = {2019},
+	title = {Transfer learning from speech to music: towards language-sensitive emotion recognition models},
+	year = {2020},
+    booktitle = {Proceedings of the 28th European Signal Processing Conference (EUSIPCO)}, 
 }
 ```
