@@ -1,4 +1,8 @@
-# Arousal-Valence Quadrant Prediction
+# Transfer learning from speech to music: towards language-sensitive emotion recognition models
+
+## Abstract
+In this study, we address emotion recognition using unsupervised feature learning from speech data, and test its transferability to music. Our approach is to pre-train models using speech in English and Mandarin, and then fine-tune them with excerpts of music labeled with categories of emotion. 
+Our initial hypothesis is that features automatically learned from speech should be transferable to music. Namely, we expect  the intra-linguistic setting (e.g., pre-training on speech in English and fine-tuning on music in English) should result in improved performance over the cross-linguistic setting (e.g., pre-training on speech in English and fine-tuning on music in Mandarin). Our results confirm previous research on cross-domain transferability, and encourage research towards language-sensitive Music Emotion Recognition (MER) models.
 
 ## Content
 This script loads an audio file and makes predictions of the perceived emotion using the Russell circumplex model of emotion as a classifier (four classes). Quadrant 1 relates to positive arousal - positive valence (e.g., happy), Quadrant 2 relates to positive arousal - negative valence (e.g., angry), Quadrant 3 relates to negative arousal - negative valence (e.g., sad), and Quadrant 4 relates to negative arousal - positive valence (e.g., relaxed). The models have been previously trained with speech in English (Librispeech) and Mandarin (AISHELL) and transfer learning has been performed to fine-tune on music in English (4Q-Emotion) and Mandarin (CH-818). The audio directory includes some examples to test on.
@@ -62,6 +66,8 @@ optional arguments:
 ```
 
 ## Publication
+[Link to paper](https://github.com/juansgomez87/quad-pred/tree/master/paper/EUSIPCO2020_JSGC_Transfer_Learning.pdf)
+
 ```
 @InProceedings{GomezCanon2020Eusipco,
     author = {Juan Sebasti{\'a}n G{\'o}mez-Ca{\~n}{\'o}n and Estefan{\'i}a Cano and Perfecto Herrera and Emilia G{\'o}mez},
@@ -69,6 +75,6 @@ optional arguments:
     year = {2020},
     booktitle = {Proceedings of the 28th European Signal Processing Conference (EUSIPCO)},
     address = {Amsterdam, The Netherlands},
-    pages = {}
+    pages = {136--140}
 }
 ```
